@@ -2,7 +2,7 @@
 
 var bodyParser = require('body-parser');
 
-var MsgQueue = require('./classes/msgqueue');
+var MsgQueue = require('./msgqueue');
 
 var MsgQueuePlugin = class extends MsgQueue{
   constructor(app, reqTimeout){
