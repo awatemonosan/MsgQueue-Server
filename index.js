@@ -61,3 +61,5 @@ var MsgQueuePlugin = class extends MsgQueue{
     });
   }
 };
+
+module.exports = MsgQueuePlugin;
