@@ -2,15 +2,18 @@
 
 var MsgQueue = class {
   constructor(options){
+    options = options || {};
     this.queue = [];
     this.nextMsgID = 0;
-    this.reqTimeout = options.reqTimeout || 5*1000;
+    this.reqTimeout = options.reqTimeout || 30*1000;
   }
 
 // add message to queue
   enqueue(queue, payload){
     var curTime = new Date().getTime();
-    var msg = JSON.parse(JSON.stringify(payload));
+    
+    var msg = {};
+    if(payload!==undefined) msg = JSON.parse(JSON.stringify(payload));
 
     msg.id = this.nextMsgID++;
     msg.queue = queue;

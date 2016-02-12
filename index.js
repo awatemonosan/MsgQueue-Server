@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const MsgQueue = require('./classes/msgqueue');
 
 var MsgQueuePlugin = class extends MsgQueue{
-  constructor(app){
-    super();
+  constructor(app, reqTimeout){
+    super(reqTimeout);
 
     // for parsing application/json
     app.use(bodyParser.json());
