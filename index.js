@@ -1,9 +1,8 @@
 'use strict'
 
-const express = require('express');
-const bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 
-const MsgQueue = require('./classes/msgqueue');
+var MsgQueue = require('./classes/msgqueue');
 
 var MsgQueuePlugin = class extends MsgQueue{
   constructor(app, reqTimeout){
