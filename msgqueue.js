@@ -62,7 +62,6 @@ var MsgQueue = class {
     var response = [];
     while(count !== 0){
       var msg = this.getNext(queue);
-      // console.log(msg);
       if(msg === null) break;
 
       msg.req_time = curTime;
@@ -74,14 +73,12 @@ var MsgQueue = class {
   }
 
   ack(id){
-    console.log('ack ' + id);
     var curTime = new Date().getTime();
 
     for(var index=0; index<this.queue.length; index++){
       var msg = this.queue[index];
       if(msg.id !== id) continue;
       if(msg.req_time < curTime - this.reqTimeout) continue;
-      console.log('acked');
 
       this.queue.splice(index, 1);
       break;
