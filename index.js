@@ -16,14 +16,12 @@ var MsgQueuePlugin = class extends MsgQueue{
 
     var that = this;
     app.post('/enqueue', function (req, res) {
-      if(req.body.queue === 'log'){
-        console.log(req.body.payload.message);
-      } else {
-        let queue = req.body.queue;
-        let payload = req.body.payload;
+      let queue = req.body.queue;
+      let payload = req.body.payload;
 
-        that.enqueue(queue, payload);
-      }
+      if(queue === 'log') console.log(payload.msg);
+      else that.enqueue(queue, payload);
+      
       res.send({});
     });
 
