@@ -14,11 +14,12 @@ var MsgQueuePlugin = class extends MsgQueue{
     // for parsing application/x-www-form-urlencoded
     app.use(bodyParser.urlencoded({ extended: true }));
 
+    var that = this;
     app.post('/enqueue', function (req, res) {
       let queue = req.body.queue;
       let payload = req.body.payload;
 
-      this.enqueue(queue, payload);
+      that.enqueue(queue, payload);
 
       res.send({});
     });
@@ -26,7 +27,7 @@ var MsgQueuePlugin = class extends MsgQueue{
     app.post('/poll', function (req, res) {
       let queue = req.body.queue;
 
-      let count = this.poll(queue);
+      let count = that.poll(queue);
 
       res.send({
         count: count
@@ -37,7 +38,7 @@ var MsgQueuePlugin = class extends MsgQueue{
       let queue = req.body.queue;
       let count = req.body.count;
 
-      let msgs = this.req(queue, count);
+      let msgs = that.req(queue, count);
 
       res.send({
         msgs: msgs
@@ -47,7 +48,7 @@ var MsgQueuePlugin = class extends MsgQueue{
     app.post('/ack', function (req, res) {
       let id = req.body.id;
 
-      this.ack(id);
+      that.ack(id);
 
       res.send({});
     });
@@ -55,8 +56,12 @@ var MsgQueuePlugin = class extends MsgQueue{
     app.post('/rej', function (req, res) {
       let id = req.body.id;
 
-      this.rej(id);
+      that.rej(id);
 
+      res.send({});
+    });
+
+    app.post('/ping', function (req, res) {
       res.send({});
     });
   }
