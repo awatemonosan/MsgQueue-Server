@@ -35,6 +35,16 @@ var MsgQueuePlugin = class extends MsgQueue{
       });
     });
 
+    app.post('/count', function (req, res) {
+      let queue = req.body.queue;
+
+      let count = that.count(queue);
+
+      res.send({
+        count: count
+      });
+    });
+
     app.post('/req', function (req, res) {
       let queue = req.body.queue;
       let count = req.body.count;

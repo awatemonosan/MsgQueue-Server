@@ -3,9 +3,10 @@
 var MsgQueue = class {
   constructor(options){
     options = options || {};
-    this.queue = [];
+    this.reqTimeout = options.reqTimeout || 30 * 1000;
+    
+    this.queue = []; // TODO: make this a hash of linked lists {QUEUENAME:[], etc...}
     this.nextMsgID = 0;
-    this.reqTimeout = options.reqTimeout || 30*1000;
   }
 
 // add message to queue
@@ -36,7 +37,20 @@ var MsgQueue = class {
     return count;
   }
 
-  //todo hide this shit.
+  count(queue){
+    var that = this;
+    var curTime = new Date().getTime();
+
+    var count = 0;
+    this.queue.forEach(function(msg){
+      if(msg.queue !== queue) return;
+      count++;
+    });
+
+    return count;
+  }
+
+  // TODO?: Make this method private?
   getNext(queue){
     var curTime = new Date().getTime();
     var result = null;
@@ -94,6 +108,10 @@ var MsgQueue = class {
       msg.req_time = 0;
       break;
     }
+  }
+
+  snapshot(){
+    return JSON.parse(JSON.stringify(this.queue));
   }
 };
 
